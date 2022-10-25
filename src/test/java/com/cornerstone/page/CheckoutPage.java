@@ -1,21 +1,21 @@
 package com.cornerstone.page;
 
 import com.cornerstone.driver.DriverManager;
-import cucumber.api.java.ca.I;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class CheckoutPage extends DriverManager {
+    DriverManager driverManager = new DriverManager();
+    String emailId = "payalpatel157@gmail.com";
 
     @FindBy(id = "email")
     WebElement email;
 
-    @FindBy(css = "label[for='privacyPolicy']")
+    @FindBy(name = "privacyPolicy")
     WebElement privacyPolicy;
 
-    @FindBy(id = "checkout-customer-continue")
+    @FindBy(css = "#checkout-customer-continue")
     WebElement customerContinueButton;
 
     @FindBy(id = "firstNameInput")
@@ -36,7 +36,7 @@ public class CheckoutPage extends DriverManager {
     @FindBy(id = "phoneInput")
     WebElement phoneNumber;
 
-    @FindBy(id = "checkout-shipping-continue")
+    @FindBy(css = "#checkout-shipping-continue")
     WebElement shippingContinueButton;
 
     @FindBy(id = "ccNumber")
@@ -55,9 +55,14 @@ public class CheckoutPage extends DriverManager {
     WebElement placeOrderButton;
 
     public void enterCustomerDetails() {
-        email.sendKeys("payal157patel@gmail.com");
-        privacyPolicy.click();
+        int myRandomNumber = driverManager.generateRandomNumber();
+        email.sendKeys(myRandomNumber + emailId);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", privacyPolicy);
+//        privacyPolicy.click();
+        waitUntilElementIsClickable(customerContinueButton);
         customerContinueButton.click();
+
     }
 
     public void enterShippingAddressDetails(){
@@ -67,10 +72,15 @@ public class CheckoutPage extends DriverManager {
         city.sendKeys("London");
         postCode.sendKeys("E79QG");
         phoneNumber.sendKeys("07685845678");
-        shippingContinueButton.click();
+        waitUntilElementIsClickable(shippingContinueButton);
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click()",shippingContinueButton);
+//        shippingContinueButton.click();
+
     }
 
     public void enterPaymentDetails(){
+        waitUntilElementIsVisible(creditCardNumber,30,"continue button is not visible");
         creditCardNumber.sendKeys("4111 1111 1111 1111");
         expiryDate.sendKeys("10/23");
         creditCardName.sendKeys("MRS PAYAL PATIL");
