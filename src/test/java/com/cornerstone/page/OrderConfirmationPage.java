@@ -8,7 +8,7 @@ import java.nio.file.WatchEvent;
 
 public class OrderConfirmationPage extends DriverManager {
 
-    @FindBy(linkText = "Thank you Payal!")
+    @FindBy(xpath = "//*[@id=\"checkout-app\"]/div/div[1]/div/h1")
     WebElement confirmationHeading;
 
     public String  getConfirmationText(){

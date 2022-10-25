@@ -34,14 +34,14 @@ public class OrderPurchaseSteps extends DriverManager {
     @When("^I complete the checkout process$")
     public void i_complete_the_checkout_process() throws Throwable {
         checkoutPage.enterCustomerDetails();
-//        checkoutPage.enterShippingAddressDetails();
-//        checkoutPage.enterPaymentDetails();
+        checkoutPage.enterShippingAddressDetails();
+        checkoutPage.enterPaymentDetails();
     }
 
     @Then("^I am presented with a purchase confirmation page for my order$")
     public void i_am_presented_with_a_purchase_confirmation_page_for_my_order() throws Throwable {
-//        String myConfirmationText = orderConfirmationPage.getConfirmationText();
-//        System.out.println(myConfirmationText);
+        String myConfirmationText = orderConfirmationPage.getConfirmationText();
+        System.out.println(myConfirmationText);
 
     }
 
